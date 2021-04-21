@@ -179,7 +179,7 @@ ranova <- function(model, reduce.terms=TRUE, ...) {
   for(nform in new_forms) { # For each new formula. nform <- new_forms[[1]]
     newfit <- if(!has_ranef(nform)) { # If no random effects: fit with lm
       lm_call <- get_lm_call(model, nform)
-      eval.parent(as.call(lm_call))
+      eval(as.call(lm_call), envir = environment(nform))
     } else eval.parent(update(model, formula=nform))
   # } else eval.parent(update(model, formula=nform, ...))
     # Check that models were fit to the same number of observations:
